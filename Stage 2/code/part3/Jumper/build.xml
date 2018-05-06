@@ -1,0 +1,47 @@
+<project> 
+    <property name="jar.path" value="../gridworld.jar" />
+    <target name="compileJumper">
+        <javac classpath="${jar.path}" srcdir="." destdir="." includes="Jumper.java" includeantruntime="false"/> 
+    </target> 
+
+    <target name="compile" depends="compileJumper">
+        <javac classpath="${jar.path}" srcdir="." destdir="." includes="JumperRunner.java" includeantruntime="false" />
+    </target>
+    <target name="run" depends="compile">
+        <java classname="JumperRunner" fork="true">
+            <classpath>
+                <pathelement location="${jar.path}" />
+                <pathelement location="." />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete file="Jumper.class" quiet="true" />
+        <delete file="JumperRunner.class" quiet="true" />
+        <delete file="JumperTest.class" quiet="true" />
+    </target>
+
+    <target name="compile-test">
+        <javac srcdir="." destdir="." includes="JumperTest.java" includeantruntime="false">
+            <classpath>
+                <pathelement location="${jar.path}" />
+                <pathelement location="." />
+                <pathelement location="./junit-4.9.jar" />
+            </classpath>
+        </javac>
+    </target>
+    <target name="junit" depends="compile-test, compileJumper">
+        <junit printsummary="on">
+            <classpath>
+                <pathelement location="./Jumper.class" />
+                <pathelement location="${jar.path}" />
+                <pathelement location=".." />
+                <pathelement location="." />
+                <pathelement location="./junit-4.9.jar" />
+            </classpath>
+            <test name="JumperTest" />
+            <formatter type="plain" usefile="false" />
+        </junit>
+    </target>
+</project>

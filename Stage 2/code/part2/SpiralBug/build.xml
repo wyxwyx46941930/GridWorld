@@ -1,0 +1,23 @@
+<project> 
+    <property name="jar.path" value="../gridworld.jar" />
+    <target name="compileBug">
+        <javac classpath="${jar.path}" srcdir="." destdir="." excludes="*Runner.java" includeantruntime="false"/> 
+    </target> 
+
+    <target name="compile" depends="compileBug">
+        <javac classpath="${jar.path}" srcdir="." destdir="." excludes="*Bug.java" includeantruntime="false" />
+    </target>
+    <target name="run" depends="compile">
+        <java classname="SpiralBugRunner" fork="true">
+            <classpath>
+                <pathelement location="${jar.path}" />
+                <pathelement location="." />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete file="SpiralBug.class" quiet="true" />
+        <delete file="SpiralBugRunner.class" quiet="true" />
+    </target>
+</project>

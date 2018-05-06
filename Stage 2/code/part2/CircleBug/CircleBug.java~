@@ -1,0 +1,28 @@
+import info.gridworld.actor.Bug;
+
+public class CircleBug extends Bug {
+    private int steps;
+    private int radius;
+
+    /**
+     * Constructs a box bug that traces a circle of a given radius
+     * @param radiusTmp the radius of the circle
+     */
+    public CircleBug(int radiusTmp) {
+        steps = 0;
+        radius = radiusTmp;
+    }
+
+    /**
+     * Moves to the next location of the circle
+     */
+    public void act() {
+        if (steps < radius && canMove()) {
+            move();
+            ++steps;
+        } else {
+            turn();
+            steps = 0;
+        }
+    }
+}
